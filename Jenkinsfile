@@ -20,24 +20,18 @@ pipeline {
             }
         }
         stage('Test') {
-            
+            agent {
+                docker {
+                    image 'node:18-alpine'
+                    reuseNode true
+                }
+            }
             steps {
                 echo 'Test stage....'
                 sh '''
                 test -f build/index.html
+                npm test
                 '''
-                // script {
-                //     def fileExists = fileExists 'build/index.html'
-                    
-                //     if (fileExists) {
-                //         echo 'index.html exists in the build folder'
-                //     } else {
-                //         error 'index.html does not exist in the build folder'
-                //     }
-                // } 
-                
-                // echo "Running npm tests ....."
-                // npm test
                 
             }
         }
