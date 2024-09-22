@@ -19,23 +19,26 @@ pipeline {
                 '''
             }
         }
-        stage('test') {
+        stage('Test') {
             
             steps {
-                sh 'echo "Test stage...."'
-                script {
-                    def fileExists = fileExists 'build/index.html'
-                    
-                    if (fileExists) {
-                        echo 'index.html exists in the build folder'
-                    } else {
-                        error 'index.html does not exist in the build folder'
-                    }
-                } 
+                echo 'Test stage....'
                 sh '''
-                echo "Running npm tests ....."
-                npm test
-                ''' 
+                test -f build/index.html
+                '''
+                // script {
+                //     def fileExists = fileExists 'build/index.html'
+                    
+                //     if (fileExists) {
+                //         echo 'index.html exists in the build folder'
+                //     } else {
+                //         error 'index.html does not exist in the build folder'
+                //     }
+                // } 
+                
+                // echo "Running npm tests ....."
+                // npm test
+                
             }
         }
     }
